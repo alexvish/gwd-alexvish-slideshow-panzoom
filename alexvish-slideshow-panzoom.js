@@ -22,17 +22,14 @@ if (document.registerElement) {
   var proto = Object.create(HTMLElement.prototype, {
     attachedCallback: {
       value: function() {
-        var images = createImages(this.getAttribute("imgs"));
+        var images = createImages(this.getAttribute("images"));
         for(;this.firstChild;) {
           this.removeChild(this.firstChild);
         }
         
-        //var w = window.document.documentElement.clientWidth;
-        //var h = window.document.documentElement.clientHeight;
-        //this.style.width=w  + 'px';
-        //this.style.height=h  + 'px';
         var emptyImage = "data:image/gif;base64,R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
 
+        
         for(var i = 0; i < images.length; i++) {
           var source = images[i].getAttribute("source");
           var srcAttr = images[i].getAttribute('src');
@@ -40,10 +37,6 @@ if (document.registerElement) {
           images[i].style.backgroundRepeat= 'no-repeat';
           images[i].style.backgroundPosition = 'center';
           images[i].style.backgroundSize = 'cover';
-          //images[i].style.width = w  + 'px';
-          //images[i].style.height = h  + 'px';
-          //images[i].style["margin-left"] = -w/2  + 'px';
-          //images[i].style["margin-top"] = -h/2  + 'px';
           srcAttr != emptyImage && images[i].setAttribute('src', emptyImage);
         }
 
@@ -54,10 +47,7 @@ if (document.registerElement) {
         	this.appendChild(images[i]);
         }
 
-        window.setInterval(kenBurns, 16000);
-        var numberOfImages  = images.length,
-        i = 1;  
-
+        var numberOfImages  = images.length, i = 1;
         function kenBurns() {
           if(i==numberOfImages){ i = 0;}
             images[i].className = "fx";
@@ -68,9 +58,15 @@ if (document.registerElement) {
             i++;
         }
 
-        window.requestAnimationFrame(function() {
-        	images[0].className = "fx";	
-        });
+
+        if (numberOfImages > 2) {
+          window.setInterval(kenBurns, 16000);
+          window.requestAnimationFrame(function() {
+            images[0].className = "fx"; 
+          });  
+        }
+        
+
         var this0 = this;
         this.resizeSensor = new ResizeSensor(this,function() {
         	this0.sizeChanged();

@@ -2,7 +2,7 @@
    "name": "Pan & Zoom slideshow",
    "type": "alexvish-slideshow-panzoom",
    "tagName": "alexvish-slideshow-panzoom",
-   "version": 0.2,
+   "version": 0.3,
    "description": "Image slideshow with Ken Burns effect",
    "files": {
        "js": ["alexvish-slideshow-panzoom_all_min.js"],
@@ -10,7 +10,8 @@
    },
    "attributes" : [
 		{
-			"name":"imgs",
+			"name":"images",
+      "asset": true,
 			"label": "Images",
 			"type": "imagelist",
 			"gwdSpecific": {
